@@ -22,7 +22,7 @@ const Home = () => {
   const AppIcons = [
     "/Flutter.png",
     "/Firebase.png",
-    "/Github.png",
+    "/GitHub.png",
     "/Visual Studio.png",
   ];
   const WebIcons = [
