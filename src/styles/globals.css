@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --base-font-size: 16px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+
+body {
+  background-color: #59434A;
+
+  background-image: url('/BG.png');
+  background-size: cover;
+
+  background-position: center center;
+
+  background-repeat: no-repeat;
+
+}
+
+.border {
+  border: solid black 1px
+}
