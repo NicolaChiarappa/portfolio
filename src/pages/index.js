@@ -34,7 +34,7 @@ const Home = () => {
     "/Nodejs.png",
     "/Tailwind CSS.png",
     "/Firebase.png",
-    "/Github.png",
+    "/GitHub.png",
     "/Visual Studio.png",
   ];
 
