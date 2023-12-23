@@ -6,7 +6,10 @@ import Image from "next/image";
 
 const Navbar = () => {
   return (
-    <HStack style='w-full justify-start gap-10  h-fit py-5  text-nowrap'>
+    <HStack
+      style='w-full justify-start gap-10  h-fit py-5  text-nowrap sticky top-0
+     left-0  z-50 backdrop-blur-3xl px-32'
+    >
       <TextButton>
         <p className='font-p text-p2 '>Home</p>
       </TextButton>
@@ -17,12 +20,11 @@ const Navbar = () => {
         <p className='font-p text-p2 '>Chi sono</p>
       </TextButton>
 
-      <div className='ml-20'>
+      <HStack style='w-full justify-end  gap-5'>
         <Primary>
           <p className='font-p text-p2 '>Contatti</p>
         </Primary>
-      </div>
-      <HStack style='w-full justify-end  gap-5'></HStack>
+      </HStack>
     </HStack>
   );
 };

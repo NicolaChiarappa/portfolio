@@ -18,6 +18,8 @@ import {
 } from "../components/typography/Paragraphs";
 import TextButton from "../components/buttons/textbutton";
 
+import { MdKeyboardDoubleArrowDown } from "react-icons/md";
+
 const Home = () => {
   const AppIcons = [
     "/Flutter.png",
@@ -45,7 +47,6 @@ const Home = () => {
   ];
   return (
     <>
-      <Navbar></Navbar>
       <VStack style='gap-16'>
         <Hero></Hero>
         <VStack>
@@ -90,9 +91,6 @@ const Hero = () => {
             <br></br> aspirante <span className='text-gold02'>designer</span>
           </Paragraph1>
           <HStack style=' gap-5'>
-            <Secondary>
-              <Paragraph2 color=' '>Collaboriamo</Paragraph2>
-            </Secondary>
             <Primary>
               <Paragraph2 color=' '>Contattami</Paragraph2>
             </Primary>
@@ -100,7 +98,10 @@ const Hero = () => {
         </VStack>
       </HStack>
       <HStack style='w-full h-20 justify-center'>
-        <Paragraph1>Scorri</Paragraph1>
+        <MdKeyboardDoubleArrowDown
+          size={80}
+          color='#D7C7DE'
+        ></MdKeyboardDoubleArrowDown>
       </HStack>
     </VStack>
   );
@@ -188,27 +189,50 @@ const Road = () => {
 const Portfolio = () => {
   return (
     <VStack>
-      <Heading2>Cosa ho fatto</Heading2>
-      <VStack style='w-full items-center gap-10'>
-        <div className='relative w-[1070px] h-[492px]'>
-          <Image alt='' src='/portfolioHome.png' fill />
+      <HStack style='items-end justify-between'>
+        <Heading2 style=''>Cosa ho fatto</Heading2>
+        <div className='mb-8'>
+          <Secondary>
+            <Paragraph2 color=' '>Visita portfolio</Paragraph2>
+          </Secondary>
         </div>
-        <VStack>
-          <Heading3>Osteria della madonna</Heading3>
-          <HStack style='justify-between items-end'>
-            <VStack>
-              <Paragraph1>{"[Sito web-design]"}</Paragraph1>
-              <Paragraph2 color='white01'>{"Ristorante"}</Paragraph2>
-            </VStack>
-            <TextButton>
-              <Paragraph2 color=' '>Esplora</Paragraph2>
-            </TextButton>
-          </HStack>
-        </VStack>
-        <Primary>
-          <Paragraph1 color=' '>Visita portfolio</Paragraph1>
-        </Primary>
+      </HStack>
+      <HStack style='w-full max-2xl:gap-[4%] 2xl:gap-[2%] flex-wrap'>
+        <PortfolioComponents img='/portfolioHome.png'></PortfolioComponents>
+        <PortfolioComponents img='/wt.png'></PortfolioComponents>
+        <PortfolioComponents img='/uniquizmockup.png'></PortfolioComponents>
+        <PortfolioComponents img='/portfoliomockup.png'></PortfolioComponents>
+      </HStack>
+      <div className='h-screen'></div>
+    </VStack>
+  );
+};
+
+const PortfolioComponents = ({ img }) => {
+  return (
+    <VStack style='max-2xl:w-[48%] 2xl:w-[32%] h-80 items-center    relative mb-10'>
+      <div className='w-full h-full bg-white01 opacity-20 shadow-xl shadow-black01 rounded-xl absolute top-0'></div>
+      <VStack style='w-full h-full  opacity-0 rounded-xl absolute z-10 top-0 hover:opacity-100 p-10 justify-end bg-black01/90'>
+        <Paragraph1>Osteria della madonna</Paragraph1>
+        <Paragraph2>Ristorante</Paragraph2>
+        <HStack style='gap-3'>
+          <Primary>
+            <Paragraph3>Design</Paragraph3>
+          </Primary>
+          <Primary>
+            <Paragraph3>e-Commerce</Paragraph3>
+          </Primary>
+        </HStack>
       </VStack>
+      <HStack style='w-full justify-center  h-80   relative'>
+        <Image
+          alt=''
+          src={img}
+          className='object-contain w-max h-full'
+          width={1000}
+          height={1000}
+        />
+      </HStack>
     </VStack>
   );
 };

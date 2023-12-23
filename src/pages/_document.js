@@ -1,3 +1,4 @@
+import Navbar from "@/components/navbar";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -9,8 +10,9 @@ export default function Document() {
           href='https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap'
         />
       </Head>
+      <Navbar></Navbar>
 
-      <body className='font-lato px-32'>
+      <body className='font-lato '>
         <Main />
         <NextScript />
       </body>
