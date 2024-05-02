@@ -142,6 +142,16 @@ const RecentYoutube = () => {
             "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29kaW5nfGVufDB8MHwwfHx8Mg%3D%3D"
           }
         ></VideoCard>
+        <VideoCard
+          url={
+            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29kaW5nfGVufDB8MHwwfHx8Mg%3D%3D"
+          }
+        ></VideoCard>
+        <VideoCard
+          url={
+            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29kaW5nfGVufDB8MHwwfHx8Mg%3D%3D"
+          }
+        ></VideoCard>
       </div>
     </div>
   );
