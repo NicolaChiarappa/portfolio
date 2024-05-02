@@ -1,240 +1,161 @@
 import React from "react";
-import Navbar from "../components/navbar";
-import HStack from "../components/layout/HStack";
-import VStack from "../components/layout/VStack";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import Primary from "../components/buttons/primary";
-import Secondary from "../components/buttons/secondary";
-import {
-  Heading1,
-  Heading2,
-  Heading3,
-} from "../components/typography/Headings";
+const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
+//import animationData from "animation.json";
 
-import {
-  Paragraph1,
-  Paragraph2,
-  Paragraph3,
-} from "../components/typography/Paragraphs";
-import TextButton from "../components/buttons/textbutton";
-
-import { MdKeyboardDoubleArrowDown } from "react-icons/md";
-
-const Home = () => {
-  const AppIcons = [
-    "/Flutter.png",
-    "/Firebase.png",
-    "/GitHub.png",
-    "/Visual Studio.png",
-  ];
-  const WebIcons = [
-    "/HTML.png",
-    "/CSS.png",
-    "/JavaScript.png",
-    "/React.png",
-    "/Next.js.png",
-    "/Nodejs.png",
-    "/Tailwind CSS.png",
-    "/Firebase.png",
-    "/GitHub.png",
-    "/Visual Studio.png",
-  ];
-
-  const DesignIcons = [
-    "/Adobe Illustrator.png",
-    "/Adobe Photoshop.png",
-    "/Figma.png",
-  ];
+const Navbar = () => {
   return (
-    <>
-      <VStack style='gap-16'>
-        <Hero></Hero>
-        <VStack>
-          <Skill
-            title='Applicazioni'
-            subtitle='Di solito uso Flutter'
-            images={AppIcons}
-          ></Skill>
-          <Skill
-            title='Siti web'
-            subtitle='Di solito uso Flutter'
-            images={WebIcons}
-          ></Skill>
-          <Skill
-            title='Design'
-            subtitle='Di solito uso Flutter'
-            images={DesignIcons}
-          ></Skill>
-        </VStack>
+    <div className='navbar bg-base-100 lg:px-40 text-deepblue'>
+      <div className='navbar-start'>
+        <div className='dropdown'>
+          <div tabIndex={0} role='button' className='btn btn-ghost lg:hidden'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='h-5 w-5'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
+                d='M4 6h16M4 12h8m-8 6h16'
+              />
+            </svg>
+          </div>
+          <ul
+            tabIndex={0}
+            className='menu menu-lg dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 h-fit py-2 '
+          >
+            <li className='mb-1'>
+              <a>Portfolio</a>
+            </li>
+            <li className='mb-1'>
+              <a>About me</a>
+            </li>
+            <li className='mb-1'>
+              <a>Projects</a>
+            </li>
+            <li className='mb-1'>
+              <a className='text-red-600 font-bold '>Youtube</a>
+            </li>
+            <li className=''>
+              <button className='text-blue-600 font-bold'>Telegram</button>
+            </li>
+          </ul>
+        </div>
+        <a className='btn btn-ghost text-xl'>Nicola Chiarappa</a>
+      </div>
+      <div className='navbar-center hidden lg:flex'>
+        <ul className='menu menu-horizontal px-1'>
+          <li>
+            <a>Portfolio</a>
+          </li>
+          <li>
+            <a href=''>About me</a>
+          </li>
+          <li>
+            <a>Projects</a>
+          </li>
+        </ul>
+      </div>
+      <div className='navbar-end hidden lg:flex justify-end space-x-5'>
+        <a className='btn text-red-600'>Youtube</a>
+        <a className='btn text-blue-500'>Telegram</a>
+      </div>
+    </div>
+  );
+};
 
-        <Timeline></Timeline>
-        <Road></Road>
-        <Portfolio></Portfolio>
-      </VStack>
-    </>
+const GradientText = () => {
+  const text = "ma solo ciò che conta";
+  const textArray = text.split("");
+
+  return (
+    <div className='flex justify-center my-3 '>
+      <div className='relative w-9 h-9'>
+        <Image alt='' fill className='absolute' src='/icons/AI.png'></Image>
+      </div>
+      <h1 className='text-3xl font-black py-4'>
+        {textArray.map((char, index) => (
+          <span
+            key={index}
+            style={{
+              color: `rgba(242, 239, 234, ${Math.max(
+                0.2,
+                1 - index / (textArray.length - 1)
+              )})`,
+            }}
+          >
+            {char}
+          </span>
+        ))}
+      </h1>
+    </div>
   );
 };
 
 const Hero = () => {
   return (
-    <VStack style='mt-24'>
-      <HStack style='w-full justify-between  h-fit'>
-        <div className='w-[563px] h-[442px] relative'>
-          <Image src='/portrait.png' fill alt=''></Image>
+    <div className='hero min-h-screen  text-cream px-2'>
+      <div className='hero-content text-center'>
+        <div className='max-w-xl'>
+          <h1 className='text-5xl font-bold'>👋 Nicola qui</h1>
+          <br></br>
+          <h1 className='text-3xl font-bold opacity-85'>
+            {"sto sviluppando qualcosa"}
+          </h1>
+          <GradientText />
         </div>
-        <VStack style='w-full h-fit justify-center gap-10 text-white03 items-end absolute right-32 '>
-          <Heading2>
-            Ciao sono<span className='text-gold02 ml-4'>Nick</span>
-          </Heading2>
-          <Paragraph1 style='text-right'>
-            Sono uno <span className='text-gold02'>sviluppatore</span> e
-            <br></br> aspirante <span className='text-gold02'>designer</span>
-          </Paragraph1>
-          <HStack style=' gap-5'>
-            <Primary>
-              <Paragraph2 color=' '>Contattami</Paragraph2>
-            </Primary>
-          </HStack>
-        </VStack>
-      </HStack>
-      <HStack style='w-full h-20 justify-center'>
-        <MdKeyboardDoubleArrowDown
-          size={80}
-          color='#D7C7DE'
-        ></MdKeyboardDoubleArrowDown>
-      </HStack>
-    </VStack>
-  );
-};
-
-const Skill = ({ title, subtitle, images }) => {
-  return (
-    <HStack style='w-full h-56   items-center justify-between'>
-      <VStack style='w-1/2 '>
-        <Heading3>{title}</Heading3>
-        <Paragraph2>{subtitle}</Paragraph2>
-      </VStack>
-      <HStack style='w-1/2  flex-wrap gap-5'>
-        {images.map((el, index) => {
-          return (
-            <div className='w-20 h-20 relative' key={index}>
-              <Image src={"/icons" + el} alt='' fill></Image>
-            </div>
-          );
-        })}
-      </HStack>
-    </HStack>
-  );
-};
-
-const Timeline = () => {
-  return (
-    <VStack style=''>
-      <Heading2>Da dove vengo</Heading2>
-      <div className='w-full h-[428px] relative '>
-        <Image src='/timeline.svg' alt='' fill />
       </div>
-    </VStack>
+    </div>
   );
 };
 
-const Road = () => {
+const VideoCard = ({ url, title }) => {
   return (
-    <VStack style='w-full h-fit'>
-      <Heading2>Dove vado</Heading2>
-      <HStack style='flex-wrap gap-16'>
-        <VStack style='w-[28%]'>
-          <Heading3 color='gold02'>Front-end</Heading3>
-          <Paragraph2>
-            Continuo a studiare e ad approfondire librerie e framekork di
-            Front-end
-          </Paragraph2>
-        </VStack>
-        <VStack style='w-[28%]'>
-          <Heading3 color='gold02'>UI/UX</Heading3>
-          <Paragraph2>
-            Mi sono da poco immerso nel mondo del design di interfacce. Sto
-            studiando i fondamentali.
-          </Paragraph2>
-        </VStack>
-        <VStack style='w-[28%]'>
-          <Heading3 color='gold02'>Università</Heading3>
-          <Paragraph2>
-            Continuo a studiare per laurearmi in informatica.
-          </Paragraph2>
-        </VStack>
-      </HStack>
-      <VStack style='w-1/2 mt-10'>
-        <Heading3>I miei obiettivi</Heading3>
-        <Paragraph2>Sto lavorando sui miei punti deboli:</Paragraph2>
-        <ul className='list-disc text-white02'>
-          <li>
-            <Paragraph2 style='font-bold'>Migliore organizzazione</Paragraph2>
-          </li>
-          <li>
-            <Paragraph2 style='font-bold'>Codice più pulito</Paragraph2>
-          </li>
-          <li>
-            <Paragraph2 style='font-bold'>Maggiori collaborazioni</Paragraph2>
-          </li>
-          <li>
-            <Paragraph2 style='font-bold'>Più networking</Paragraph2>
-          </li>
-        </ul>
-      </VStack>
-    </VStack>
-  );
-};
+    <div className='card card-compact lg:w-96 w-72  bg-base-100 shadow-xl carousel-item  text-deepblue'>
+      <figure>
+        <img src={url} />
+      </figure>
+      <div className='card-body'>
+        <h2 className='card-title'>Come ho ricreato Pacman con ChatGPT</h2>
 
-const Portfolio = () => {
-  return (
-    <VStack>
-      <HStack style='items-end justify-between'>
-        <Heading2 style=''>Cosa ho fatto</Heading2>
-        <div className='mb-8'>
-          <Secondary>
-            <Paragraph2 color=' '>Visita portfolio</Paragraph2>
-          </Secondary>
+        <div className='card-actions justify-end'>
+          <button className='btn bg-blue-400 text-cream'>Leggi ora</button>
+          <button className='btn bg-red-600 text-cream'>Guarda ora</button>
         </div>
-      </HStack>
-      <HStack style='w-full max-2xl:gap-[4%] 2xl:gap-[2%] flex-wrap'>
-        <PortfolioComponents img='/portfolioHome.png'></PortfolioComponents>
-        <PortfolioComponents img='/wt.png'></PortfolioComponents>
-        <PortfolioComponents img='/uniquizmockup.png'></PortfolioComponents>
-        <PortfolioComponents img='/portfoliomockup.png'></PortfolioComponents>
-      </HStack>
-      <div className='h-screen'></div>
-    </VStack>
+      </div>
+    </div>
   );
 };
 
-const PortfolioComponents = ({ img }) => {
+const RecentYoutube = () => {
   return (
-    <VStack style='max-2xl:w-[48%] 2xl:w-[32%] h-80 items-center    relative mb-10'>
-      <div className='w-full h-full bg-white01 opacity-20 shadow-xl shadow-black01 rounded-xl absolute top-0'></div>
-      <VStack style='w-full h-full  opacity-0 rounded-xl absolute z-10 top-0 hover:opacity-100 p-10 justify-end bg-black01/90'>
-        <Paragraph1>Osteria della madonna</Paragraph1>
-        <Paragraph2>Ristorante</Paragraph2>
-        <HStack style='gap-3'>
-          <Primary>
-            <Paragraph3>Design</Paragraph3>
-          </Primary>
-          <Primary>
-            <Paragraph3>e-Commerce</Paragraph3>
-          </Primary>
-        </HStack>
-      </VStack>
-      <HStack style='w-full justify-center  h-80   relative'>
-        <Image
-          alt=''
-          src={img}
-          className='object-contain w-max h-full'
-          width={1000}
-          height={1000}
-        />
-      </HStack>
-    </VStack>
+    <div className='flex flex-col items-center '>
+      <h2 className='text-4xl font-bold'>I miei ultimi video</h2>
+      <div className='carousel carousel-center space-x-5 rounded-box py-9 max-w-full px-4'>
+        <VideoCard
+          url={
+            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29kaW5nfGVufDB8MHwwfHx8Mg%3D%3D"
+          }
+        ></VideoCard>
+      </div>
+    </div>
   );
 };
 
-export default Home;
+const App = () => {
+  return (
+    <div className=''>
+      <Navbar />
+      <Hero />
+      <RecentYoutube />
+      <div className='h-28'></div>
+    </div>
+  );
+};
+
+export default App;

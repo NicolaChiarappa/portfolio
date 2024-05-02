@@ -8,14 +8,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        black01: "#1D070E",
-        black02: "#3B252C",
-        black03: "#59434A",
-        gold01: "#E1AC1C",
-        gold02: "#FFCA3A",
-        white01: "#D7C7DE",
-        white02: "#F5E5FC",
-        white03: "#F3F2F2",
+        cream: "#F2EFEA",
+        deepblue: "#02010A",
+        brightred: "#F72C25",
+        oceanblue: "#0077B6",
       },
       fontSize: {
         h1: "11.0875rem",
@@ -39,5 +35,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };

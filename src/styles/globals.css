@@ -9,23 +9,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
 
 body {
-  background: linear-gradient(174deg, #003559 0.63%, #005377 49.28%, #1E7195 97.41%);
-
-
-
+  @apply bg-deepblue;
+  @apply text-cream;
 }
-
-main {
-  padding-left: 8rem
-    /* 128px */
-  ;
-  padding-right: 8rem
-    /* 128px */
-  ;
-}
-
-
-
-/* .border {
-  border: solid black 1px
-} */
