@@ -1,6 +1,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import Head from "next/head";
 const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
 //import animationData from "animation.json";
 
@@ -124,8 +125,8 @@ const VideoCard = ({ url, title }) => {
         <h2 className='card-title'>Come ho ricreato Pacman con ChatGPT</h2>
 
         <div className='card-actions justify-end'>
-          <button className='btn bg-blue-400 text-cream'>Leggi ora</button>
-          <button className='btn bg-red-600 text-cream'>Guarda ora</button>
+          <button className='btn bg-blue-400 text-cream'>Articolo</button>
+          <button className='btn bg-red-600 text-cream'>Video</button>
         </div>
       </div>
     </div>
@@ -135,7 +136,7 @@ const VideoCard = ({ url, title }) => {
 const RecentYoutube = () => {
   return (
     <div className='flex flex-col items-center '>
-      <h2 className='text-4xl font-bold'>I miei ultimi video</h2>
+      <h2 className='text-4xl font-bold'>I miei ultimi progetti</h2>
       <div className='carousel carousel-center space-x-5 rounded-box py-9 max-w-full px-4'>
         <VideoCard
           url={
@@ -159,12 +160,17 @@ const RecentYoutube = () => {
 
 const App = () => {
   return (
-    <div className=''>
-      <Navbar />
-      <Hero />
-      <RecentYoutube />
-      <div className='h-28'></div>
-    </div>
+    <>
+      <Head>
+        <title>Home page</title>
+      </Head>
+      <div className=''>
+        <Navbar />
+        <Hero />
+        <RecentYoutube />
+        <div className='h-28'></div>
+      </div>
+    </>
   );
 };
 
