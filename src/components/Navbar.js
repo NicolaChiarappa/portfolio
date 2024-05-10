@@ -21,7 +21,7 @@ const Navbar = () => {
           Blog
         </a>
         <a className='btn btn-sm lg:hover:border lg:hover:border-white bg-red-600'>
-          Youtube
+          YouTube
           <IoLogoYoutube></IoLogoYoutube>
         </a>
       </div>
