@@ -1,85 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Head from "next/head";
 const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
+import ThemeSwitcher from "@/components/ThemeSwitch";
+import Navbar from "@/components/Navbar";
+import { IoArrowForward, IoChevronDown, IoPeople } from "react-icons/io5";
+import Link from "next/link";
+import Footer from "@/components/Footer";
 //import animationData from "animation.json";
 
-const Navbar = () => {
+const App = () => {
   return (
-    <div className='navbar bg-base-100 lg:px-40 text-deepblue'>
-      <div className='navbar-start'>
-        <div className='dropdown'>
-          <div tabIndex={0} role='button' className='btn btn-ghost lg:hidden'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='h-5 w-5'
-              fill='none'
-              viewBox='0 0 24 24'
-              stroke='currentColor'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M4 6h16M4 12h8m-8 6h16'
-              />
-            </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className='menu menu-lg dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 h-fit py-2 '
-          >
-            <li className='mb-1'>
-              <a>Portfolio</a>
-            </li>
-            <li className='mb-1'>
-              <a>About me</a>
-            </li>
-            <li className='mb-1'>
-              <a>Projects</a>
-            </li>
-            <li className='mb-1'>
-              <a className='text-red-600 font-bold '>Youtube</a>
-            </li>
-            <li className=''>
-              <button className='text-blue-600 font-bold'>Telegram</button>
-            </li>
-          </ul>
-        </div>
-        <a className='btn btn-ghost text-xl'>Nicola Chiarappa</a>
-      </div>
-      <div className='navbar-center hidden lg:flex'>
-        <ul className='menu menu-horizontal px-1'>
-          <li>
-            <a>Portfolio</a>
-          </li>
-          <li>
-            <a href=''>About me</a>
-          </li>
-          <li>
-            <a>Projects</a>
-          </li>
-        </ul>
-      </div>
-      <div className='navbar-end hidden lg:flex justify-end space-x-5'>
-        <a className='btn text-red-600'>Youtube</a>
-        <a className='btn text-blue-500'>Telegram</a>
-      </div>
+    <div className=''>
+      <Head>
+        <title>Nicola Chiarappa | Home</title>
+      </Head>
+      <Navbar />
+      <Hero />
+      <Below />
+      <Footer />
     </div>
   );
 };
 
-const GradientText = () => {
+const Testo = () => {
   const text = "ma solo ciò che conta";
   const textArray = text.split("");
 
   return (
-    <div className='flex justify-center my-3 '>
+    <div className='flex justify-center my-3 space-x-4'>
       <div className='relative w-9 h-9'>
         <Image alt='' fill className='absolute' src='/icons/AI.png'></Image>
       </div>
-      <h1 className='text-3xl font-black py-4'>
+      <h1 className='lg:text-4xl text-3xl font-medium py-4'>
         {textArray.map((char, index) => (
           <span
             key={index}
@@ -100,77 +54,79 @@ const GradientText = () => {
 
 const Hero = () => {
   return (
-    <div className='hero min-h-screen  text-cream px-2'>
-      <div className='hero-content text-center'>
-        <div className='max-w-xl'>
-          <h1 className='text-5xl font-bold'>👋 Nicola qui</h1>
-          <br></br>
-          <h1 className='text-3xl font-bold opacity-85'>
-            {"sto sviluppando qualcosa"}
-          </h1>
-          <GradientText />
+    <div className='hero min-h-screen bg-base-200   '>
+      <div className='hero-content text-center flex-col h-full  '>
+        <div className=' '>
+          <h1 className='lg:text-7xl text-5xl font-bold'>👋🏻 Nicola qui</h1>
+          <h3 className='mt-6 lg:text-5xl text-3xl font-medium'>
+            Sto sviluppando qualcosa
+          </h3>
+          <Testo />
+        </div>
+        <div className='flex justify-start flex-col items-center justify-self-end lg:mt-48 mt-36'>
+          <p className='font-medium lg:text-2xl text-xl'>in che senso?</p>
+          <IoChevronDown color='white' size={60} className=''></IoChevronDown>
         </div>
       </div>
     </div>
   );
 };
 
-const VideoCard = ({ url, title }) => {
+const Card = () => {
   return (
-    <div className='card card-compact lg:w-96 w-72  bg-base-100 shadow-xl carousel-item  text-deepblue'>
+    <div className='card card-compact w-full bg-base-100 shadow-xl'>
       <figure>
-        <img src={url} />
+        <img
+          className='opacity-60'
+          src='https://images.pexels.com/photos/7724328/pexels-photo-7724328.jpeg?auto=compress&cs=tinysrgb&w=600'
+          alt='Shoes'
+        />
       </figure>
       <div className='card-body'>
-        <h2 className='card-title'>Come ho ricreato Pacman con ChatGPT</h2>
+        <h2 className='card-title'>Ho realizzato Pacman con ChatGPT</h2>
 
         <div className='card-actions justify-end'>
-          <button className='btn bg-blue-400 text-cream'>Articolo</button>
-          <button className='btn bg-red-600 text-cream'>Video</button>
+          <button className='btn btn-primary btn-md'>
+            Esplora
+            <IoArrowForward size={25}></IoArrowForward>
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-const RecentYoutube = () => {
+const Below = () => {
   return (
-    <div className='flex flex-col items-center '>
-      <h2 className='text-4xl font-bold'>I miei ultimi progetti</h2>
-      <div className='carousel carousel-center space-x-5 rounded-box py-9 max-w-full px-4'>
-        <VideoCard
-          url={
-            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29kaW5nfGVufDB8MHwwfHx8Mg%3D%3D"
-          }
-        ></VideoCard>
-        <VideoCard
-          url={
-            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29kaW5nfGVufDB8MHwwfHx8Mg%3D%3D"
-          }
-        ></VideoCard>
-        <VideoCard
-          url={
-            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29kaW5nfGVufDB8MHwwfHx8Mg%3D%3D"
-          }
-        ></VideoCard>
+    <div className='flex min-h-screen flex-col lg:px-60 px-12 bg-base-200 justify-around space-y-20 items-center '>
+      <div className='flex flex-col space-y-6 items-center w-full'>
+        <div>
+          <h3 className='lg:text-3xl text-2xl font-bold mb-4'>
+            {"L'AI può sostituire il lavoro degli sviluppatori?"}
+          </h3>
+          <p className='lg:text-2xl text-xl '>
+            Voglio fare con voi questo viaggio, per condividere le scoperte che
+            questo mondo riserva. <br></br>Lo faremo attraverso la creazione di
+            progetti reali.
+          </p>
+          <p className='lg:text-2xl text-xl '>{""}</p>
+        </div>
+        <Link
+          className='btn btn-primary btn-md text-3xl lg:w-1/3 w-full'
+          href={"blog"}
+        >
+          <IoPeople></IoPeople>
+          Unisciti
+        </Link>
+      </div>
+      <div className='flex flex-col space-y-6 w-full '>
+        <h3 className='lg:text-3xl text-2xl font-bold mb-4'>Ultimi progetti</h3>
+        <div className='flex max-lg:flex-col lg:space-x-20 max-lg:space-y-10'>
+          <Card />
+          <Card />
+        </div>
       </div>
     </div>
-  );
-};
-
-const App = () => {
-  return (
-    <>
-      <Head>
-        <title>Home page</title>
-      </Head>
-      <div className=''>
-        <Navbar />
-        <Hero />
-        <RecentYoutube />
-        <div className='h-28'></div>
-      </div>
-    </>
   );
 };
 
