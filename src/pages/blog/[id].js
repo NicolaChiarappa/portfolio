@@ -2,79 +2,159 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
-
-const Page = () => {
-  const apiToken = process.env.API_TOKEN;
-  const router = useRouter();
-  const { id } = router.query; // Ottiene l'id dalla query
-  const fetchData = async () => {
-    const response = await fetch(
-      "https://panel.nicolach.com/api/articolos/2?populate=*",
+import Navbar from "@/components/Navbar";
+import { FaMarkdown } from "react-icons/fa";
+import Markdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import {
+  oneDark,
+  atomDark,
+} from "react-syntax-highlighter/dist/cjs/styles/prism";
+export async function getServerSideProps(context) {
+  try {
+    const Token = process.env.API_TOKEN;
+    const res = await fetch(
+      "https://panel.nicolach.com/api/articolos?filters[slug][$eq]=" +
+        context.params.id +
+        "&populate=*",
       {
         method: "GET",
         headers: {
-          "Authorization": { apiToken },
-
-          "Content-Type": "application/json",
+          "Authorization": Token,
         },
       }
     );
-    const data = await response.json();
-    // Gestisci i dati come necessario
-  };
 
-  fetchData().then(() => console.log("Dati caricati"));
+    if (!res.ok) {
+      throw new Error(`Failed to fetch data, status: ${res.status}`);
+    }
+
+    const data = await res.json();
+    return { props: { data } };
+  } catch (error) {
+    console.error(error.message);
+    return {
+      props: {
+        error: error.message,
+      },
+    };
+  }
+}
+
+const Page = ({ data }) => {
+  const attributes = data.data[0].attributes;
 
   return (
     <>
       <Head>
-        <title>Titolo articolo</title>
+        <title>{attributes.Titolo}</title>
       </Head>
-      <div>ciao</div>
+      <Navbar></Navbar>
+      <div className='lg:px-60 px-5 mt-10'>
+        <ArticleComponent article={attributes} />
+      </div>
     </>
   );
 };
 
 const ArticleComponent = ({ article }) => {
   if (!article) return <p>{"Caricamento dell'articolo..."}</p>;
-  console.log(article);
 
-  const { attributes } = article;
-  const { Titolo, Data, Autore, Cover, Paragrafo } = attributes;
+  const { Titolo, Data, Autore, Cover, Contenuto } = article;
+
+  const date = new Date(Data);
+  const formatter = new Intl.DateTimeFormat("it-IT", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
 
   return (
-    <div>
-      <h1>{Titolo}</h1>
-      <p>
-        <strong>Scritto da:</strong> {Autore}
-      </p>
-      <p>
-        <strong>Data:</strong> {new Date(Data).toLocaleDateString()}
-      </p>
-      {Cover.data && (
-        <div>
-          <Image
-            src={Cover.data.attributes.formats.large.url}
-            alt={Cover.data.attributes.name || "Immagine di copertina"}
-            width={Cover.data.attributes.formats.large.width}
-            height={Cover.data.attributes.formats.large.height}
-          />
+    <>
+      <div
+        className='hero min-h-[50vh]'
+        style={{
+          backgroundImage:
+            "url(https://panel.nicolach.com" +
+            Cover.data.attributes.formats.medium.url +
+            ")",
+        }}
+      >
+        <div className='hero-overlay bg-opacity-60'></div>
+        <div className='hero-content  text-neutral-content items-end  h-full'>
+          <div className='s '>
+            <h1 className='mb-5 lg:text-5xl text-4xl font-bold'>{Titolo}</h1>
+          </div>
         </div>
-      )}
-      {Paragrafo.map((par) => (
-        <div key={par.id}>
-          <h2>{par.Sottotitolo}</h2>
-          {par.Testo.map((p, index) => (
-            <p key={index}>
-              {p.children.map((child, index) => (
-                <span key={index}>{child.text}</span>
-              ))}
-            </p>
-          ))}
-        </div>
-      ))}
-    </div>
+      </div>
+      <div className='w-full'>
+        <Markdown
+          components={{
+            code(props) {
+              return <CodeComponent codice={props.children}></CodeComponent>;
+            },
+          }}
+        >
+          {Contenuto.Testo}
+        </Markdown>
+      </div>
+    </>
   );
 };
 
+const renderContent = (element) => {
+  switch (element.type) {
+    case "paragraph":
+      return (
+        <p className='mt-3 text-lg'>
+          {element.children.map((child) => child.text)}
+        </p>
+      );
+    case "heading":
+      const Tag = `h${element.level}`; // Utilizza il livello dell'intestazione per determinare il tag (h1, h2, ecc.)
+      return (
+        <Tag className='mt-16 font-bold lg:text-4xl text-3xl'>
+          {element.children.map((child) => child.text)}
+        </Tag>
+      );
+
+    case "code":
+      return (
+        <pre>
+          <code>{element.children.map((child) => child.text)}</code>
+        </pre>
+      );
+
+    case "image":
+      return (
+        <Image
+          className='mt-16'
+          src={element.image.url}
+          width={element.image.formats.medium.width}
+          height={element.image.formats.medium.height}
+          alt=''
+        ></Image>
+      );
+
+    default:
+      return null;
+  }
+};
+
 export default Page;
+
+const CodeComponent = ({ codice }) => {
+  return (
+    <>
+      <div className='collapse collapse-arrow bg-base-200 w-full'>
+        <input type='checkbox' name='my-accordion-2' />
+        <div className='collapse-title text-xl font-medium  '>Codice</div>
+        <div className=' collapse-content max-lg:overflow-scroll  '>
+          <SyntaxHighlighter style={atomDark} language='javascript'>
+            {codice}
+          </SyntaxHighlighter>
+        </div>
+      </div>
+    </>
+  );
+};
