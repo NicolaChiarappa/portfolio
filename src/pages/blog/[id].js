@@ -102,45 +102,6 @@ const ArticleComponent = ({ article }) => {
   );
 };
 
-const renderContent = (element) => {
-  switch (element.type) {
-    case "paragraph":
-      return (
-        <p className='mt-3 text-lg'>
-          {element.children.map((child) => child.text)}
-        </p>
-      );
-    case "heading":
-      const Tag = `h${element.level}`; // Utilizza il livello dell'intestazione per determinare il tag (h1, h2, ecc.)
-      return (
-        <Tag className='mt-16 font-bold lg:text-4xl text-3xl'>
-          {element.children.map((child) => child.text)}
-        </Tag>
-      );
-
-    case "code":
-      return (
-        <pre>
-          <code>{element.children.map((child) => child.text)}</code>
-        </pre>
-      );
-
-    case "image":
-      return (
-        <Image
-          className='mt-16'
-          src={element.image.url}
-          width={element.image.formats.medium.width}
-          height={element.image.formats.medium.height}
-          alt=''
-        ></Image>
-      );
-
-    default:
-      return null;
-  }
-};
-
 export default Page;
 
 const CodeComponent = ({ codice }) => {

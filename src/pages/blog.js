@@ -54,7 +54,6 @@ const App = ({ data }) => {
 
 const ArticleCard = ({ data }) => {
   const { Cover, Titolo, slug } = data;
-  console.log(data);
 
   return (
     <div className='card max-lg:w-full w-96 bg-base-100 shadow-xl image-full'>
