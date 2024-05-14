@@ -43,7 +43,7 @@ const App = ({ data }) => {
         <title>Nicola Chiarappa | Blog</title>
       </Head>
       <Navbar></Navbar>
-      <div className='lg:px-60 px-5 mt-10 lg:grid'>
+      <div className='lg:mx-60 px-5 mt-10 lg:grid grid-cols-2 gap-y-24 max-lg:space-y-14 '>
         {data["data"].map((article) => (
           <ArticleCard key={article["id"]} data={article["attributes"]} />
         ))}
