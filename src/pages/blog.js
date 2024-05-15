@@ -62,10 +62,12 @@ const ArticleCard = ({ data }) => {
           width={600}
           height={600}
           src={
-            "https://panel.nicolach.com" +
-            Cover.data.attributes.formats.small.url
+            Cover.data != null
+              ? "https://panel.nicolach.com" +
+                Cover.data.attributes.formats.small.url
+              : "https://placehold.co/600x400?text=IN+ARRIVO..."
           }
-          alt='Shoes'
+          alt=''
         />
       </figure>
       <div className='card-body self-end   '>

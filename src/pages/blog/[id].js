@@ -62,22 +62,21 @@ const ArticleComponent = ({ article }) => {
 
   const { Titolo, Data, Autore, Cover, Contenuto } = article;
 
-  const date = new Date(Data);
-  const formatter = new Intl.DateTimeFormat("it-IT", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
+  const ImageUrl =
+    Cover.data != null
+      ? "url(https://panel.nicolach.com" +
+        Cover.data.attributes.formats.medium.url +
+        ")"
+      : "url(https://placehold.co/600x400?text=IN+ARRIVO...)";
+
+  console.log(ImageUrl);
 
   return (
     <>
       <div
         className='hero min-h-[50vh]'
         style={{
-          backgroundImage:
-            "url(https://panel.nicolach.com" +
-            Cover.data.attributes.formats.medium.url +
-            ")",
+          backgroundImage: ImageUrl,
         }}
       >
         <div className='hero-overlay bg-opacity-60'></div>
