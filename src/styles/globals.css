@@ -13,8 +13,9 @@
 }
 
 p {
-  @apply opacity-75;
+  @apply opacity-75 mb-2;
   @apply text-justify;
+
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
@@ -39,4 +40,31 @@ li {
 ul {
   @apply my-4 px-4;
 
+}
+
+
+
+.highlight-container,
+.highlight {
+  position: relative;
+}
+
+.highlight-container {
+  display: inline-block;
+}
+
+.highlight-container:before {
+  content: " ";
+  display: block;
+  height: 60%;
+  width: 100%;
+  margin-left: -3px;
+  margin-right: -3px;
+  position: absolute;
+  @apply bg-red-600;
+  transform: rotate(2deg);
+  top: 10px;
+  left: 0px;
+  border-radius: 20% 25% 20% 24%;
+  padding: 10px 3px 3px 10px;
 }
