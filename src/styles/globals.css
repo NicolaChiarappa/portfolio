@@ -13,7 +13,7 @@
 }
 
 p {
-  @apply opacity-75 mb-2;
+  @apply opacity-75 mb-4;
   @apply text-justify;
 
 }
