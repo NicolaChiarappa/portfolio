@@ -6,10 +6,7 @@ import Navbar from "@/components/Navbar";
 import { FaMarkdown } from "react-icons/fa";
 import Markdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import {
-  oneDark,
-  atomDark,
-} from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
 export async function getServerSideProps(context) {
   try {
     const Token = process.env.API_TOKEN;
@@ -49,7 +46,7 @@ const Page = ({ data }) => {
       <Head>
         <title>{attributes.Titolo}</title>
       </Head>
-      <Navbar></Navbar>
+
       <div className='lg:px-60 px-5 mt-10'>
         <ArticleComponent article={attributes} />
       </div>
@@ -68,8 +65,6 @@ const ArticleComponent = ({ article }) => {
         Cover.data.attributes.formats.medium.url +
         ")"
       : "url(https://placehold.co/600x400?text=IN+ARRIVO...)";
-
-  console.log(ImageUrl);
 
   return (
     <>
@@ -106,15 +101,9 @@ export default Page;
 const CodeComponent = ({ codice }) => {
   return (
     <>
-      <div className='collapse collapse-arrow bg-base-200 w-full'>
-        <input type='checkbox' name='my-accordion-2' />
-        <div className='collapse-title text-xl font-medium  '>Codice</div>
-        <div className=' collapse-content max-lg:overflow-scroll  '>
-          <SyntaxHighlighter style={atomDark} language='javascript'>
-            {codice}
-          </SyntaxHighlighter>
-        </div>
-      </div>
+      <SyntaxHighlighter style={vscDarkPlus} language='jsx' className='w-2/3'>
+        {codice}
+      </SyntaxHighlighter>
     </>
   );
 };

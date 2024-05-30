@@ -5,6 +5,7 @@ import Head from "next/head";
 const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
 import ThemeSwitcher from "@/components/ThemeSwitch";
 import Navbar from "@/components/Navbar";
+import Link from "next/link";
 //import animationData from "animation.json";
 
 export async function getServerSideProps() {
@@ -37,18 +38,21 @@ export async function getServerSideProps() {
 }
 
 const App = ({ data }) => {
+  useEffect(() => {
+    console.log(data);
+  }, []);
   return (
-    <>
+    <div className='min-h-[100vh]'>
       <Head>
         <title>Nicola Chiarappa | Blog</title>
       </Head>
-      <Navbar></Navbar>
-      <div className='lg:mx-60 px-5 mt-10 lg:grid grid-cols-2 gap-y-24 max-lg:space-y-14 '>
+
+      <div className='lg:mx-60 px-5 mt-10 lg:grid lg:grid-cols-2 2xl:grid-cols-3 gap-y-24 gap-x-24 max-lg:space-y-14 '>
         {data["data"].map((article) => (
           <ArticleCard key={article["id"]} data={article["attributes"]} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
@@ -56,11 +60,15 @@ const ArticleCard = ({ data }) => {
   const { Cover, Titolo, slug } = data;
 
   return (
-    <div className='card max-lg:w-full w-96 bg-base-100 shadow-xl image-full'>
+    <Link
+      href={"/blog/" + slug}
+      className='card w-full bg-base-100  hover:shadow-xl text-neutral-content rounded-xl min-h-64 justify-end '
+    >
       <figure>
+        <div className='bg-black absolute top-0 z-[11] opacity-65 w-full h-full rounded-xl'></div>
         <Image
-          width={600}
-          height={600}
+          className='object-cover opacity-100 z-10 rounded-xl'
+          fill
           src={
             Cover.data != null
               ? "https://panel.nicolach.com" +
@@ -70,15 +78,12 @@ const ArticleCard = ({ data }) => {
           alt=''
         />
       </figure>
-      <div className='card-body self-end   '>
-        <div className='flex items-end '>
-          <h2 className='card-title   w-fit'>{Titolo}</h2>
-          <a className='btn btn-primary btn-sm text-xl' href={"/blog/" + slug}>
-            Leggi
-          </a>
+      <div className='card-body  h-fit z-[12] absolute '>
+        <div className='flex h-fit '>
+          <h4 className='card-title text-2xl w-fit'>{Titolo}</h4>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

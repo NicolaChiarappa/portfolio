@@ -6,7 +6,7 @@ import { IoLogoYoutube } from "react-icons/io5";
 
 const Navbar = () => {
   return (
-    <div className='navbar bg-base-100 lg:px-60 sticky top-0 z-50'>
+    <div className='navbar bg-base-100 lg:px-60 sticky top-0 z-50 '>
       <Link className='btn btn-ghost text-xl btn-sm max-lg:hidden' href={"/"}>
         Nicola Chiarappa
       </Link>
