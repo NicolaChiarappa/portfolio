@@ -1,44 +1,32 @@
-import React, { useEffect } from "react";
-import { useRouter } from "next/router";
 import Head from "next/head";
-import Image from "next/image";
-import Navbar from "@/components/Navbar";
-import { FaMarkdown } from "react-icons/fa";
+
 import Markdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
-export async function getServerSideProps(context) {
-  try {
-    const Token = process.env.API_TOKEN;
-    const res = await fetch(
-      "https://panel.nicolach.com/api/articolos?filters[slug][$eq]=" +
-        context.params.id +
-        "&populate=*",
-      {
-        method: "GET",
-        headers: {
-          "Authorization": Token,
-        },
-      }
-    );
-
-    if (!res.ok) {
-      throw new Error(`Failed to fetch data, status: ${res.status}`);
-    }
-
-    const data = await res.json();
-    return { props: { data } };
-  } catch (error) {
-    console.error(error.message);
-    return {
-      props: {
-        error: error.message,
+export async function getData(context) {
+  const Token = process.env.API_TOKEN;
+  const res = await fetch(
+    "https://panel.nicolach.com/api/articolos?filters[slug][$eq]=" +
+      context.slug +
+      "&populate=*",
+    {
+      method: "GET",
+      headers: {
+        "Authorization": Token,
       },
-    };
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data, status: ${res.status}`);
   }
+
+  return res.json();
 }
 
-const Page = ({ data }) => {
+const Page = async ({ params }) => {
+  const data = await getData(params);
+
   const attributes = data.data[0].attributes;
 
   return (

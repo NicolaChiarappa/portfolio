@@ -1,50 +1,35 @@
-import React, { useEffect } from "react";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Head from "next/head";
-const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
-import ThemeSwitcher from "@/components/ThemeSwitch";
-import Navbar from "@/components/Navbar";
-import { IoArrowForward, IoChevronDown, IoPeople } from "react-icons/io5";
 import Link from "next/link";
-import Footer from "@/components/Footer";
-//import animationData from "animation.json";
 
-export async function getServerSideProps() {
-  try {
-    const Token = process.env.API_TOKEN;
-    const res = await fetch(
-      "https://panel.nicolach.com/api/articolos?populate=*",
-      {
-        method: "GET",
-        headers: {
-          "Authorization": Token,
-        },
-      }
-    );
-
-    if (!res.ok) {
-      throw new Error(`Failed to fetch data, status: ${res.status}`);
-    }
-
-    const data = await res.json();
-    return { props: { data } };
-  } catch (error) {
-    console.error(error.message);
-    return {
-      props: {
-        error: error.message,
+export async function getData() {
+  const Token = process.env.API_TOKEN;
+  const res = await fetch(
+    "https://panel.nicolach.com/api/articolos?populate=*",
+    {
+      method: "GET",
+      headers: {
+        "Authorization": Token,
       },
-    };
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data, status: ${res.status}`);
   }
+
+  return res.json();
 }
 
-const App = ({ data }) => {
+export const metadata = {
+  title: "Home | Nicola Chiarappa",
+  description: "Home page ufficile di Nicola Chiarappa",
+};
+
+const Home = ({ data }) => {
   return (
     <div className='lg:px-60 px-5'>
-      <Head>
-        <title>Nicola Chiarappa | Home</title>
-      </Head>
+      <Head></Head>
 
       <Hero />
       <Below data={data} />
@@ -105,36 +90,10 @@ const ArticleCard = ({ data }) => {
   );
 };
 
-const Below = ({ data }) => {
+const Below = async () => {
+  const data = await getData();
   return (
     <div className='flex min-h-screen flex-col justify-start space-y-20 items-center '>
-      {/* <div className='flex flex-col space-y-6 items-center w-full'>
-        <div>
-          <h3 className='lg:text-3xl text-2xl font-bold mb-4'>
-            {"L'AI può "}
-            <span className='highlight-container'>
-              <span className='highlight'>sostituire </span>
-            </span>
-            il lavoro dei programmtori?
-          </h3>
-          <h3 className='lg:text-3xl text-2xl font-bold mb-4'>
-            {"Come li supporta?"}
-          </h3>
-          <p className='lg:text-2xl text-xl '>
-            Voglio rispondere a queste domande insieme a voi e condividere le
-            scoperte che questo mondo riserva. <br></br>Lo faremo attraverso la
-            creazione di progetti reali.
-          </p>
-          <p className='lg:text-2xl text-xl '>{""}</p>
-        </div>
-        <Link
-          className='btn btn-primary btn-md text-3xl lg:w-1/3 w-full'
-          href={"blog"}
-        >
-          <IoPeople></IoPeople>
-          Unisciti
-        </Link>
-      </div> */}
       <div className='flex flex-col space-y-6 w-full '>
         <h3 className='lg:text-3xl text-2xl font-bold mb-4'>Ultimi progetti</h3>
         <div className=' grid max-lg:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-8 '>
@@ -147,4 +106,4 @@ const Below = ({ data }) => {
   );
 };
 
-export default App;
+export default Home;

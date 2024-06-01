@@ -1,12 +1,12 @@
 import React from "react";
-import ThemeSwitcher from "./ThemeSwitch";
+
 import Link from "next/link";
-import { RxCaretDown } from "react-icons/rx";
+
 import { IoLogoYoutube } from "react-icons/io5";
 
 const Navbar = () => {
   return (
-    <div className='navbar bg-base-100 lg:px-60 sticky top-0 z-50 '>
+    <nav className='navbar bg-base-100 lg:px-60 sticky top-0 z-50 '>
       <Link className='btn btn-ghost text-xl btn-sm max-lg:hidden' href={"/"}>
         Nicola Chiarappa
       </Link>
@@ -28,7 +28,7 @@ const Navbar = () => {
           <IoLogoYoutube></IoLogoYoutube>
         </Link>
       </div>
-    </div>
+    </nav>
   );
 };
 

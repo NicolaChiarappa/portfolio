@@ -1,46 +1,38 @@
-import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Head from "next/head";
 const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
-import ThemeSwitcher from "@/components/ThemeSwitch";
-import Navbar from "@/components/Navbar";
+
 import Link from "next/link";
-//import animationData from "animation.json";
 
-export async function getServerSideProps() {
-  try {
-    const Token = process.env.API_TOKEN;
-    const res = await fetch(
-      "https://panel.nicolach.com/api/articolos?populate=*",
-      {
-        method: "GET",
-        headers: {
-          "Authorization": Token,
-        },
-      }
-    );
-
-    if (!res.ok) {
-      throw new Error(`Failed to fetch data, status: ${res.status}`);
-    }
-
-    const data = await res.json();
-    return { props: { data } };
-  } catch (error) {
-    console.error(error.message);
-    return {
-      props: {
-        error: error.message,
+export async function getData(context) {
+  console.log(context);
+  const Token = process.env.API_TOKEN;
+  const res = await fetch(
+    "https://panel.nicolach.com/api/articolos?populate=*",
+    {
+      method: "GET",
+      headers: {
+        "Authorization": Token,
       },
-    };
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data, status: ${res.status}`);
   }
+
+  return res.json();
 }
 
-const App = ({ data }) => {
-  useEffect(() => {
-    console.log(data);
-  }, []);
+export const metadata = {
+  title: "Blog | Nicola Chiarappa",
+  description: "Blog ufficile di Nicola Chiarappa",
+};
+
+const App = async () => {
+  const data = await getData();
+
   return (
     <div className='min-h-[100vh]'>
       <Head>
